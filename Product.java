@@ -1,38 +1,51 @@
 public class Product{
-	private String Id;
+	private String id;
 	private String name;
 	private double price;
 	private int quantity;
-	private static double Maxprice = 0;
-	private static double Minprice = Double.MAX_VALUE;
-	private static int counter = 1;
-	
-	public Product(String name , double price, int quantity){
+	Date2 md;
+
+	private static double maxPrice;
+	private static double minPrice;
+	private static int counter = 0;
+
+	{
+		this.id = String.format("P%03d", counter++);
+	}
+
+	public Product(String name, double price, int quantity){
+		this(name, price, quantity, new Date2(1,1,2002));
+	}
+
+	public Product(String name, double price, int quantity, Date2 md){
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
-		if ( price > Maxprice ) 
-			Maxprice = price;
-		if (price < Minprice) 
-			Minprice = price;
+		this.md = md;
+		if(counter == 1){
+			maxPrice = price;
+			minPrice = price;
+		}
+		if(counter > 1 && price > maxPrice) maxPrice = price;
+		if(counter > 1 && price < minPrice) minPrice = price;
+	}
 
-}
 
-	{ this.Id = " " + String.format("P%01d", counter ++);}
+	public static double getMaxPrice(){
+		return maxPrice;
+	}
+
+	public static double getMinPrice(){
+		return minPrice;
+	}
 
 	public void displayProduct(){
-		System.out.println(name + " " + Id + " " + price + " " + quantity);
+		System.out.println("\nID: " + id);
+		System.out.println("Name: " + name);
+		System.out.println("Price: " + price);
+		System.out.println("Quantity: " + quantity);
+		md.displayDate();
+		System.out.println("Maximum Price: " + getMaxPrice());
+		System.out.println("Minimum Price: " + getMinPrice());
+	}
 }
-	public static double GetMaxprice(){
-					return Maxprice;}
-	public static double GetMinprice(){
-					return Minprice;}
-	public static void displayMaxprice(){
-		System.out.println("Maxprice" + Maxprice);}
-	public static void displayMinprice(){
-		System.out.println("Minprice" + Minprice);}
-
-
-}
-
-		
